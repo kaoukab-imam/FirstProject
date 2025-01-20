@@ -1,0 +1,42 @@
+[
+    {
+        "lastname": "{{lastname}}",
+        "firstname": "{{firstname}}",
+        "address": {
+            "numStreet": 15,
+            "streetName": "{{streetName}}",
+            "postalCode": "75001",
+            "city": "{{city}}"
+        }
+    },
+    {
+        "lastname": "{{lastname}}",
+        "firstname": "{{firstname}}",
+        "address": {
+            "numStreet": 15,
+            "streetName": "{{streetName}}",
+            "postalCode": "75001",
+            "city": "{{city}}"
+        }
+    },
+    {
+        "lastname": "{{lastname}}",
+        "firstname": "{{firstname}}",
+        "address": {
+            "numStreet": 15,
+            "streetName": "{{streetName}}",
+            "postalCode": "75001",
+            "city": "{{city}}"
+        }
+    },
+    {
+        "lastname": "{{lastname}}",
+        "firstname": "{{firstname}}",
+        "address": {
+            "numStreet": 15,
+            "streetName": "{{streetName}}",
+            "postalCode": "75001",
+            "city": "{{city}}"
+        }
+    }
+]

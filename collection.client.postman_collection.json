@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "ce19d990-1645-4453-84e9-7c20bd7c4964",
+		"name": "collection.client",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21547298"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Tous les clients",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    if (pm.response.code === 200) {\r",
+									"        pm.response.to.have.status(200); \r",
+									"    } else {\r",
+									"        console.error(\"Erreur : Le code de statut n'est pas 200. Vérifiez la réponse de l'API.\");\r",
+									"    }\r",
+									"});\r",
+									"console.log(pm.response.json());\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"firstname\": \"ali\",\r\n        \"lastname\": \"Zitout\",\r\n        \"age\": 67,\r\n        \"phonenumbers\": [\r\n            \"10071998\",\r\n            \"12072006\"\r\n        ],\r\n        \"id\": \"12\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/users"
+					},
+					"response": []
+				},
+				{
+					"name": "ADD user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//var jsonData = pm.response.json(); \r",
+									"//console.info('mes numeros '+num1)\r",
+									"//pm.collectionVariables.set(\"age\",pm.iterationData.get(\"age\"))\r",
+									"//pm.collectionVariables.set(\"nom\",pm.iterationData.get(\"firstname\"))\r",
+									"//pm.collectionVariables.set(\"prenom\",pm.iterationData.get(\"lastname\"))\r",
+									"//pm.collectionVariables.set(\"num1\",JSON.stringify(num1))\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Vérifier la création de nouveau client\", function () {\r",
+									"    pm.response.to.have.status(201); \r",
+									"});\r",
+									"\r",
+									"if (pm.response.code === 201) { \r",
+									"    var jsonData = pm.response.json(); \r",
+									"    pm.collectionVariables.set(\"ID\", jsonData.id); \r",
+									"    console.info(`Le client ${jsonData.firstname} ${jsonData.lastname} ${jsonData.age} ans avec l'ID ${jsonData.id} a été bien créé.`);\r",
+									"} else {\r",
+									"    console.error(\"Erreur : Le client n'a pas été créé. Code de statut :\", pm.response.code);\r",
+									"  \r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('nom', pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+									"//______________________________________________________________________//\r",
+									"\r",
+									"pm.collectionVariables.set('prenom', pm.variables.replaceIn('{{$randomLastName}}'));\r",
+									"//______________________________________________________________________//\r",
+									"let ageN;\r",
+									"do {\r",
+									"    ageN = Math.floor(Math.random() * 100);\r",
+									"} while (ageN < 18 || ageN > 90);\r",
+									"pm.collectionVariables.set('Age1', ageN);\r",
+									"//______________________________________________________________________//\r",
+									"\r",
+									"let num1 = [\r",
+									"    pm.variables.replaceIn('{{$randomPhoneNumber}}'),\r",
+									"    pm.variables.replaceIn('{{$randomPhoneNumber}}'),\r",
+									"    pm.variables.replaceIn('{{$randomPhoneNumber}}')\r",
+									"\r",
+									"\r",
+									"];\r",
+									"pm.collectionVariables.set('num1', JSON.stringify(num1));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n     {\r\n    \"firstname\": \"{{nom}}\",\r\n    \"lastname\": \"{{prenom}}\",\r\n    \"age\": {{Age1}},\r\n    \"phonenumbers\": {{num1}}\r\n\r\n\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/users"
+					},
+					"response": []
+				},
+				{
+					"name": "checke user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    if (pm.response.code === 200) {\r",
+									"        pm.response.to.have.status(200); \r",
+									"        console.log(\"Le code de statut est correct : 200\");\r",
+									"    } else {\r",
+									"        console.error(\"Erreur : Le code de statut n'est pas 200. Vérifiez la réponse de l'API.\");\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Vérifier le numéro ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var IDG = pm.collectionVariables.get(\"ID\");\r",
+									"\r",
+									"    if (jsonData.id === IDG) {\r",
+									"        console.log(\"L'ID est correct.\");\r",
+									"    } else {\r",
+									"        console.error(\"Erreur : L'ID ne correspond pas à '12'.\");\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/users/{{ID}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier le nom",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    if (pm.response.code === 200) {\r",
+									"        pm.response.to.have.status(200); \r",
+									"        console.log(\"Le code de statut est correct : 200\");\r",
+									"    } else {\r",
+									"        console.error(\"Erreur : Le code de statut n'est pas 200. Vérifiez la réponse de l'API.\");\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"karim\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/users/{{ID}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Verifier les modification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    if (pm.response.code === 200) {\r",
+									"        pm.response.to.have.status(200); \r",
+									"        console.log(\"Le code de statut est correct : 200\");\r",
+									"    } else {\r",
+									"        console.error(\"Erreur : Le code de statut n'est pas 200. Vérifiez la réponse de l'API.\");\r",
+									"    }\r",
+									"});\r",
+									"pm.test(\"Vérifier le nom\", function () {\r",
+									"    var jsonData = pm.response.json(); \r",
+									"    var collectionID = pm.collectionVariables.get(\"ID\"); \r",
+									"    if (jsonData.firstname === 'karim' && jsonData.id == collectionID) {\r",
+									"        console.log(\"Le firstname est bien modifié à : \" + jsonData.firstname);\r",
+									"    } else {\r",
+									"        console.error(`Erreur : le firstname n'est pas modifié (${jsonData.firstname}) ou l'ID ne correspond pas (${jsonData.id}).`);\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/users/{{ID}}"
+					},
+					"response": []
+				},
+				{
+					"name": "sup user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status de supprition de utulisateur\", function () {\r",
+									"    if (pm.response.code === 200) {\r",
+									"        pm.response.to.have.status(200); \r",
+									"        console.log(\"lutulisateur avec id :(${jsonData.id}) est bien supprimeé \");\r",
+									"    } else {\r",
+									"        console.error(`Erreur : L'utilisateur avec l'ID ${jsonData.id} n'est pas supprimé.`);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/users/{{ID}}"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ID",
+			"value": ""
+		},
+		{
+			"key": "age",
+			"value": ""
+		},
+		{
+			"key": "nom",
+			"value": ""
+		},
+		{
+			"key": "prenom",
+			"value": ""
+		},
+		{
+			"key": "num1",
+			"value": ""
+		},
+		{
+			"key": "Age",
+			"value": ""
+		},
+		{
+			"key": "Age1",
+			"value": ""
+		}
+	]
+}
